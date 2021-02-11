@@ -1,0 +1,64 @@
+start
+-> started;
+repeat
+-> no;
+:Write;
+-> send to review;
+:Reviews;
+-> endrepeat;
+repeat while (was it proper?)
+->yes;
+:some action;
+stop
+@enduml
+
+@startuml
+|Utilisateur|
+start
+:Créer nouveau tournoi;
+|Système|
+: Demander à l'utilisateur des informations \n (nom, lieu, date, nbr de tours, liste des joueurs,\n contrôle temps, description);
+
+note right
+  Joueur info : nom, prénom, date de naissance, sex, classement
+end note
+
+|Utilisateur|
+repeat :Fournir les informations;
+|Système|
+repeat while (Informations conformes ?) is (Non)
+->oui;
+:Enregistrer le tournoi dans BDD;
+:Enregistrer les nouveaux joueurs dans BDD;
+repeat :Gérer les paires pour un tour;
+if (Premier tour ?) then
+->oui;
+:Gérer paires par le classement initial;
+else
+->non;
+:Gérer paires par le nbr total de points;
+endif
+
+'repeat
+:Envoyer la liste de paires d'un tour à utilisateur;
+|Utilisateur|
+:Créer/Commencer un tour;
+|Système|
+:Gérer l'heure de début du tour;
+|Utilisateur|
+:Marquer le tour terminé;
+|Système|
+:Gérer l'heure de fin du tour;
+|Utilisateur|
+:Entrer le résultat du tour quand il est terminé;
+|Système|
+: Enregistrer le résultat du tour dans BDD;
+: Mise à jour le classement des joueurs;
+repeat while (Dernier tour?) is (Non)
+->oui;
+: Gérer les rapport\n (Liste de tous les acteurs, tous les joueurs d'un tournoi, etc.);
+stop
+@enduml
+
+
+
